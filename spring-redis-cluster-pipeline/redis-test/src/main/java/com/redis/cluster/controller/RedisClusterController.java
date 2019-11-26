@@ -20,7 +20,7 @@ import java.util.Set;
  */
 
 @RestController
-@RequestMapping("/redis")
+@RequestMapping("/redis")//这边最好写上一个路径，空的话swagger会访问不了报406（主要是针对{PathVariable}）
 @Api(tags = "RedisClusterController")
 public class RedisClusterController {
 
