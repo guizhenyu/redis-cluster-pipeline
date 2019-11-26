@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: redis-service
+  redis:
+    cluster:
+      nodes:
+    database: 0
+    password:
+    maxAttempts: 5
+    timeout: 3000
+    pool:
+      maxActive: 300
+      maxIdle: 100
+      minIdle: 35
+      max-wait: 4000
+      maxWaitMillis: 3000
+      test-on-borrow: true
+      test-while-idle: true
+
+server:
+  context-path: /redis
+  port: 9666

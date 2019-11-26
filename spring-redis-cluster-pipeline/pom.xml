@@ -8,10 +8,46 @@
     <artifactId>spring.redis.cluster.pipeline</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.16.RELEASE</version>
+    </parent>
     <modules>
-        <module>spring.start.redis</module>
-        <module>redis.test</module>
+        <module>spring-common-redis</module>
+        <module>redis-test</module>
     </modules>
+    <properties>
+        <java.version>1.8</java.version>
+        <spring.boot.version>1.5.16.RELEASE</spring.boot.version>
+        <lombok.version>1.18.10</lombok.version>
+        <org.mybatis.version>3.4.6</org.mybatis.version>
+        <redis.clients.version>2.9.0</redis.clients.version>
+        <com.alibaba.fastjson.version>1.2.7</com.alibaba.fastjson.version>
+        <io.springfox.swagger2>2.9.2</io.springfox.swagger2>
+        <org.apache.commons.lang3.version>3.8</org.apache.commons.lang3.version>
+        <maven.complier.plugin.version>3.8.1</maven.complier.plugin.version>
+        <spring.cloud.version>Finchley.RELEASE</spring.cloud.version>
+    </properties>
+    <dependencies>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-dependencies</artifactId>-->
+<!--            <version>${spring.cloud.version}</version>-->
+<!--            <type>pom</type>-->
+<!--            <scope>import</scope>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${io.springfox.swagger2}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${io.springfox.swagger2}</version>
+        </dependency>
 
-
+    </dependencies>
 </project>
