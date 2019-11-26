@@ -30,7 +30,7 @@ import java.util.List;
 @Configuration
 @EnableSwagger2
 public class SwaggerConf {
-    // 访问地址： http://localhost:9666/redis/swagger-ui.html
+    // 访问地址： http://localhost:9666/swagger-ui.html
     @Bean
     public Docket createRESTAPI(){
 //        List<Parameter> parameters = new ArrayList<>();

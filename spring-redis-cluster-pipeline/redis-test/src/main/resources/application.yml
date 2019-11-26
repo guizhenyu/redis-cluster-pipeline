@@ -18,5 +18,5 @@ spring:
       test-while-idle: true
 
 server:
-  context-path: /redis
+  context-path: /
   port: 9666

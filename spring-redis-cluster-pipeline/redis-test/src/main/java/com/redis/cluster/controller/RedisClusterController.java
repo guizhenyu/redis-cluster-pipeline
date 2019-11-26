@@ -20,7 +20,7 @@ import java.util.Set;
  */
 
 @RestController
-@RequestMapping("")
+@RequestMapping("/redis")
 @Api(tags = "RedisClusterController")
 public class RedisClusterController {
 
@@ -33,11 +33,23 @@ public class RedisClusterController {
      * @param key
      * @return
      */
-    @GetMapping("/key")
+    @GetMapping("/{key}")
     @ApiOperation("根据key查询value")
-    public Response getKey(@RequestParam("key") String key){
+    public Response getKey(@PathVariable("key") String key){
 
         Object resultValue = RedisUtils.get(jedisCluster, key, Object.class);
+        return Response.success(resultValue);
+    }
+    /**
+     * 根据keys获取对应的value
+     * @param keys
+     * @return
+     */
+    @GetMapping("/keys")
+    @ApiOperation("根据keys查询values")
+    public Response getValuesByKeys(@RequestParam("keys") List<String> keys){
+
+        Map<String, Object> resultValue = RedisUtils.batchGet(jedisCluster, keys, Object.class);
         return Response.success(resultValue);
     }
 
@@ -46,9 +58,9 @@ public class RedisClusterController {
      * @param pattern
      * @return
      */
-    @GetMapping("/keys/pattern")
+    @GetMapping("/keys/{pattern}")
     @ApiOperation("根据pattern查询keys")
-    public Response getKeyByPattern(@RequestParam("pattern") String pattern){
+    public Response getKeyByPattern(@PathVariable("pattern") String pattern){
         Object resultValue = RedisUtils.getKeysByPattern(jedisCluster, pattern);
         return Response.success(resultValue);
     }
@@ -58,9 +70,9 @@ public class RedisClusterController {
      * @param pattern
      * @return
      */
-    @GetMapping("/value/pattern")
+    @GetMapping("/values/{pattern}")
     @ApiOperation("根据pattern查询values")
-    public Response getValueByPattern(@RequestParam("pattern") String pattern){
+    public Response getValuesByPattern(@PathVariable("pattern") String pattern){
         Set<String> keysByPattern = RedisUtils.getKeysByPattern(jedisCluster, pattern);
         List<String> keys = new ArrayList<>();
         keys.addAll(keysByPattern);
@@ -68,10 +80,24 @@ public class RedisClusterController {
         return Response.success(resultValue);
     }
 
+    @ApiOperation("根据key删除value")
+    @DeleteMapping("{key}")
+    public Response deleteByKey(@PathVariable("key") String key){
+        return Response.success(RedisUtils.delete(jedisCluster, key));
+    }
 
-//    @DeleteMapping("key")
-//    public Response deleteByKey(){
-//
-//    }
+    @ApiOperation("根据keys删除values")
+    @DeleteMapping("keys")
+    public Response deleteByKeys(@RequestParam("keys") List<String> keys){
+        RedisUtils.batchDelete(jedisCluster, keys);
+        return Response.success();
+    }
+
+    @ApiOperation("设置key和value")
+    @PostMapping("")
+    public Response set(@RequestBody Map<String, Object> keyValue){
+        RedisUtils.batchSet(jedisCluster, keyValue);
+        return Response.success();
+    }
 
 }
