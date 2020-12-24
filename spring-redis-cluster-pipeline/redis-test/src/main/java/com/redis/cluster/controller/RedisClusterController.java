@@ -100,4 +100,17 @@ public class RedisClusterController {
         return Response.success();
     }
 
+    /**
+     * 根据pattern模糊删除所有的value
+     * @param pattern
+     * @return
+     */
+    @DeleteMapping("/values/{pattern}")
+    @ApiOperation("根据pattern查询values")
+    public Response delByPattern(@PathVariable("pattern") String pattern){
+        RedisUtils.delKeysByPattern(jedisCluster, pattern);
+
+        return Response.success();
+    }
+
 }

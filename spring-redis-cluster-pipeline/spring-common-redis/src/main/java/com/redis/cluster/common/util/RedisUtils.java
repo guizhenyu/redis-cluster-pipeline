@@ -299,4 +299,27 @@ public class RedisUtils {
             return null;
         }
     }
+
+    public static void delKeysByPattern(JedisCluster jc, String pattern) {
+        Map<String, JedisPool> nodes = jc.getClusterNodes();
+        Set<String> keys = new HashSet<>();
+        //遍历所有连接池，逐个进行模糊查询,然后再删除
+        for (String nodeKey : nodes.keySet()) {
+            JedisPool pool = nodes.get(nodeKey);
+            //获取Jedis对象，Jedis对象支持keys模糊查询
+            try (
+                    Jedis jedis = pool.getResource();
+                    Pipeline currentPipeline = jedis.pipelined();
+            ) {
+                Set<String> keySet = jedis.keys(pattern);
+                for (String key : keySet) {
+                    currentPipeline.del(key);
+                }
+                //一次执行
+                currentPipeline.syncAndReturnAll();
+            } catch (Exception e) {
+                log.error("RedisBatchUtil del keys by pattern error, e: {}", e);
+            }
+        }
+    }
 }
