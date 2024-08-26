@@ -25,7 +25,7 @@
         <org.mybatis.version>3.4.6</org.mybatis.version>
         <redis.clients.version>2.9.0</redis.clients.version>
         <com.alibaba.fastjson.version>1.2.7</com.alibaba.fastjson.version>
-        <io.springfox.swagger2>2.9.2</io.springfox.swagger2>
+        <io.springfox.swagger2>2.10.0</io.springfox.swagger2>
         <org.apache.commons.lang3.version>3.8</org.apache.commons.lang3.version>
         <maven.complier.plugin.version>3.8.1</maven.complier.plugin.version>
         <spring.cloud.version>Finchley.RELEASE</spring.cloud.version>
